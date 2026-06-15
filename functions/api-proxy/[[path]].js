@@ -14,6 +14,9 @@ const ALLOWED_HOSTS = [
 const ALLOWED_SUFFIXES = [
   ".elfhosted.com",
   ".strem.fun",
+  ".strem.io",
+  ".stremio.homes",
+  ".debridio.com",
   ".workers.dev",
   ".fly.dev",
   ".onrender.com",
