@@ -25,7 +25,9 @@ console.log(`Proxy request: ${host}`);
 if (!ALLOWED_HOSTS.includes(host)) {
   console.log(`Blocked proxy host: ${host}`);
 
-  return new Response("Host not allowed", { status: 403 });
+  return new Response(`Host not allowed: ${host}`, {
+    status: 403,
+  });
 }
 
   const targetPath = "/" + path.slice(1).join("/");
