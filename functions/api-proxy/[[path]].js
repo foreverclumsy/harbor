@@ -11,6 +11,18 @@ const ALLOWED_HOSTS = [
   "www.premiumize.me",
 ];
 
+const ALLOWED_SUFFIXES = [
+  ".elfhosted.com",
+  ".strem.fun",
+  ".workers.dev",
+  ".fly.dev",
+  ".onrender.com",
+  ".vercel.app",
+  ".netlify.app",
+  ".railway.app",
+  ".deno.dev",
+];
+
 export async function onRequest(context) {
   const path = context.params.path;
 
@@ -20,15 +32,19 @@ export async function onRequest(context) {
 
   const host = path[0];
 
-console.log(`Proxy request: ${host}`);
+  console.log(`Proxy request: ${host}`);
 
-if (!ALLOWED_HOSTS.includes(host)) {
-  console.log(`Blocked proxy host: ${host}`);
+  const allowed =
+    ALLOWED_HOSTS.includes(host) ||
+    ALLOWED_SUFFIXES.some((suffix) => host.endsWith(suffix));
 
-  return new Response(`Host not allowed: ${host}`, {
-    status: 403,
-  });
-}
+  if (!allowed) {
+    console.log(`Blocked proxy host: ${host}`);
+
+    return new Response(`Host not allowed: ${host}`, {
+      status: 403,
+    });
+  }
 
   const targetPath = "/" + path.slice(1).join("/");
 
