@@ -20,9 +20,13 @@ export async function onRequest(context) {
 
   const host = path[0];
 
-  if (!ALLOWED_HOSTS.includes(host)) {
-    return new Response("Host not allowed", { status: 403 });
-  }
+console.log(`Proxy request: ${host}`);
+
+if (!ALLOWED_HOSTS.includes(host)) {
+  console.log(`Blocked proxy host: ${host}`);
+
+  return new Response("Host not allowed", { status: 403 });
+}
 
   const targetPath = "/" + path.slice(1).join("/");
 
