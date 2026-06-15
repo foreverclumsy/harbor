@@ -24,6 +24,7 @@ const ALLOWED_SUFFIXES = [
   ".netlify.app",
   ".railway.app",
   ".deno.dev",
+  ".baby-beamup.club",
 ];
 
 export async function onRequest(context) {
