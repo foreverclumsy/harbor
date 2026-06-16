@@ -64,9 +64,12 @@ export async function onRequest(context) {
 
 const target = `${protocol}://${host}${targetPath}${url.search}`;
 
+console.log("TARGET:", target);
+
   const headers = new Headers(context.request.headers);
   headers.delete("host");
 
+try {
   const response = await fetch(target, {
     method: context.request.method,
     headers,
@@ -81,4 +84,10 @@ const target = `${protocol}://${host}${targetPath}${url.search}`;
     status: response.status,
     headers: response.headers,
   });
+} catch (e) {
+  return new Response(`FETCH ERROR: ${String(e)}`, {
+    status: 500,
+  });
+
+}
 }
