@@ -189,7 +189,7 @@ export const DEFAULT: Settings = {
   downloadDir: "",
   stremioDeeplinkInstall: true,
   iptvPlaylists: [],
-  iptvLiveContainer: "ts",
+  iptvLiveContainer: "m3u8",
   iptvForceProxy: false,
   iptvEpgOffsetHours: 0,
   sidebarCollapsed: false,
