@@ -25,6 +25,8 @@ const PROXY_HOSTS = new Set([
   "api.alldebrid.com",
   "debrid-link.com",
   "www.premiumize.me",
+
+  "8kcld.top",
 ]);
 
 const PROXY_SUFFIXES = [
