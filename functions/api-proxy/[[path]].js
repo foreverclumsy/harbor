@@ -9,6 +9,8 @@ const ALLOWED_HOSTS = [
   "api.torbox.app",
   "debrid-link.com",
   "www.premiumize.me",
+
+  "8kcld.top",
 ];
 
 const ALLOWED_SUFFIXES = [
