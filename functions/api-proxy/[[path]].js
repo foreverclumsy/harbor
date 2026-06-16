@@ -27,6 +27,10 @@ const ALLOWED_SUFFIXES = [
   ".baby-beamup.club",
 ];
 
+const HTTP_HOSTS = [
+  "8kcld.top",
+];
+
 export async function onRequest(context) {
   const path = context.params.path;
 
@@ -53,7 +57,11 @@ export async function onRequest(context) {
   const targetPath = "/" + path.slice(1).join("/");
 
   const url = new URL(context.request.url);
-  const target = `https://${host}${targetPath}${url.search}`;
+  const protocol = HTTP_HOSTS.includes(host)
+  ? "http"
+  : "https";
+
+const target = `${protocol}://${host}${targetPath}${url.search}`;
 
   const headers = new Headers(context.request.headers);
   headers.delete("host");
