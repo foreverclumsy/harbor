@@ -80,6 +80,9 @@ try {
         : await context.request.arrayBuffer(),
   });
 
+console.log("UPSTREAM STATUS:", response.status);
+console.log("FINAL URL:", response.url);
+
   return new Response(response.body, {
     status: response.status,
     headers: response.headers,
