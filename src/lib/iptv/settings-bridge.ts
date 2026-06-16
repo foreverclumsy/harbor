@@ -15,7 +15,7 @@ function readSettings(): Record<string, unknown> {
 
 export function liveContainerPref(): XtreamContainer {
   const v = readSettings().iptvLiveContainer;
-  return v === "m3u8" ? "m3u8" : "ts";
+  return v === "ts" ? "ts" : "m3u8";
 }
 
 export function epgOffsetHoursPref(): number {
