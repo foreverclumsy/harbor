@@ -198,6 +198,14 @@ export function buildLiveStreamUrl(
   streamId: number,
   container: XtreamContainer = "ts",
 ): string {
+  try {
+    const host = new URL(creds.base).hostname;
+
+    if (host === "8kcld.top") {
+      return `/api-proxy/${host}/live/${encodeURIComponent(creds.username)}/${encodeURIComponent(creds.password)}/${streamId}.${container}`;
+    }
+  } catch {}
+
   return `${creds.base}/live/${encodeURIComponent(creds.username)}/${encodeURIComponent(creds.password)}/${streamId}.${container}`;
 }
 
