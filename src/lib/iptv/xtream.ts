@@ -152,7 +152,7 @@ export async function fetchXtreamUserInfo(creds: XtreamCreds): Promise<void> {
 export async function fetchXtreamLiveChannels(
   creds: XtreamCreds,
   baseId: string,
-  container: XtreamContainer = "ts",
+  container: XtreamContainer = "m3u8",
 ): Promise<IptvChannel[]> {
   const [categoriesRaw, streamsRaw] = await Promise.all([
     xtreamFetch(apiUrl(creds, "get_live_categories")),
@@ -196,7 +196,7 @@ export async function fetchXtreamLiveChannels(
 export function buildLiveStreamUrl(
   creds: XtreamCreds,
   streamId: number,
-  container: XtreamContainer = "ts",
+  container: XtreamContainer = "m3u8",
 ): string {
   try {
     const host = new URL(creds.base).hostname;
