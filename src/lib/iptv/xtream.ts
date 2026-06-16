@@ -92,7 +92,11 @@ async function xtreamFetchText(url: string): Promise<string> {
     if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
     return res.text();
   }
-  const res = await fetch(url, { cache: "no-store" });
+  const { safeFetch } = await import("@/lib/safe-fetch");
+
+const res = await safeFetch(url, {
+  cache: "no-store",
+});
   if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
   return res.text();
 }
