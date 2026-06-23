@@ -79,6 +79,9 @@ const target = `${protocol}://${host}${targetPath}${url.search}`;
         : await context.request.arrayBuffer(),
   });
 
+console.log("STATUS:", response.status);
+console.log("LOCATION:", response.headers.get("location"));
+
 const outHeaders = new Headers(response.headers);
 outHeaders.set("x-harbor-proxy", "hit");
 
