@@ -236,7 +236,20 @@ export function buildLiveStreamUrl(
   streamBase?: string,
 ): string {
   const base = streamBase ?? creds.base;
-  return `${base}/live/${encodeURIComponent(creds.username)}/${encodeURIComponent(creds.password)}/${streamId}.${container}`;
+
+  const raw =
+    `${base}/live/${encodeURIComponent(creds.username)}/${encodeURIComponent(creds.password)}/${streamId}.${container}`;
+
+  if (
+    typeof window !== "undefined" &&
+    !("__TAURI_INTERNALS__" in window) &&
+    raw.startsWith("http://")
+  ) {
+    const u = new URL(raw);
+    return `/api-proxy/${u.hostname}${u.pathname}${u.search}`;
+  }
+
+  return raw;
 }
 
 export async function fetchXtreamShortEpg(
