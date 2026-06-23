@@ -246,7 +246,8 @@ export function buildLiveStreamUrl(
     raw.startsWith("http://")
   ) {
     const u = new URL(raw);
-    return `/api-proxy/${u.hostname}${u.pathname}${u.search}`;
+
+    return `${window.location.origin}/api-proxy/${u.hostname}${u.pathname}${u.search}`;
   }
 
   return raw;
