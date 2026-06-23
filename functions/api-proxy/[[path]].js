@@ -70,14 +70,22 @@ const target = `${protocol}://${host}${targetPath}${url.search}`;
   headers.delete("host");
 
   const response = await fetch(target, {
-    method: context.request.method,
-    headers,
-    body:
-      context.request.method === "GET" ||
-      context.request.method === "HEAD"
-        ? undefined
-        : await context.request.arrayBuffer(),
-  });
+  method: context.request.method,
+  headers,
+  redirect: "manual",
+  body:
+    context.request.method === "GET" ||
+    context.request.method === "HEAD"
+      ? undefined
+      : await context.request.arrayBuffer(),
+});
+
+console.log(
+  "STATUS:",
+  response.status,
+  "LOCATION:",
+  response.headers.get("location")
+);
 
 console.log("STATUS:", response.status);
 console.log("LOCATION:", response.headers.get("location"));
