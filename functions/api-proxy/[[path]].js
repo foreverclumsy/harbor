@@ -35,6 +35,8 @@ const HTTP_HOSTS = [
 export async function onRequest(context) {
   const path = context.params.path;
 
+console.log("API PROXY PATH:", JSON.stringify(context.params.path));
+
   if (!path || path.length < 2) {
     return new Response("Invalid proxy request", { status: 400 });
   }
