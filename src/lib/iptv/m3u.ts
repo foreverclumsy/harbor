@@ -217,15 +217,29 @@ export function deriveEpgUrls(playlistUrl: string): string[] {
     const username = u.searchParams.get("username");
     const password = u.searchParams.get("password");
     if (!username || !password) return [];
-    const base = `${u.protocol}//${u.host}`;
-    const xmltv = new URL(`${base}/xmltv.php`);
-    xmltv.searchParams.set("username", username);
-    xmltv.searchParams.set("password", password);
-    const getPhp = new URL(`${base}/get.php`);
-    getPhp.searchParams.set("username", username);
-    getPhp.searchParams.set("password", password);
-    getPhp.searchParams.set("type", "epg");
-    return [xmltv.toString(), getPhp.toString()];
+    const isBrowser =
+  typeof window !== "undefined" &&
+  !("__TAURI_INTERNALS__" in window);
+
+if (isBrowser && u.protocol === "http:") {
+  return [
+    `/api-proxy/${u.host}/xmltv.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+    `/api-proxy/${u.host}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=epg`,
+  ];
+}
+
+const base = `${u.protocol}//${u.host}`;
+
+const xmltv = new URL(`${base}/xmltv.php`);
+xmltv.searchParams.set("username", username);
+xmltv.searchParams.set("password", password);
+
+const getPhp = new URL(`${base}/get.php`);
+getPhp.searchParams.set("username", username);
+getPhp.searchParams.set("password", password);
+getPhp.searchParams.set("type", "epg");
+
+return [xmltv.toString(), getPhp.toString()];
   } catch {
     return [];
   }
