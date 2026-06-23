@@ -30,7 +30,16 @@ async function iptvFetch(url: string, signal: AbortSignal): Promise<Response> {
       });
     }
   }
-  return fetch(url, { cache: "no-store", signal });
+  const { safeFetch } = await import("@/lib/safe-fetch");
+
+return safeFetch(url, {
+  cache: "no-store",
+  signal,
+  headers: {
+    "User-Agent": "VLC/3.0.20 LibVLC/3.0.20",
+    Accept: "application/xml, text/xml, application/octet-stream, */*",
+  },
+});
 }
 
 export async function fetchAndParseXmltv(
